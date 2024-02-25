@@ -1,26 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To-Do List</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Login Page</title>
+
+  <script>
+      document.addEventListener('DOMContentLoaded',function(){
+
+          // By default, submit button is disabled 
+
+          document.querySelector('#submit').disabled = true;
+
+          document.querySelector('#task').onkeyup = function(){
+              if (document.querySelector('#task').value.length > 0){
+                  document.querySelector('#submit').disabled = false;
+              } else {
+                  document.querySelector('#submit').disabled = true;
+              }
+
+          }
+
+
+
+
+
+
+          document.querySelector('form').onsubmit = function(){
+             const task =  document.querySelector('#task').value;
+          const li =document.createElement('li')
+          li.innerHTML = task;
+          document.querySelector('#tasks').append(li);
+          document.querySelector('#task').value='';
+
+
+
+
+
+              // stop form from submitting
+
+              return false;
+
+          }
+
+      });
+  </script>
 </head>
+
 <body>
-    <h1>To-Do List</h1>
-    <form id="add-form">
-        <input type="text" id="new-item" placeholder="Add a new item...">
-        <button type="submit">Add</button>
-    </form>
-    <div class="controls">
-        <button id="clear-completed">Clear Completed</button>
-        <select id="filter">
-            <option value="all">All</option>
-            <option value="active">Active</option>
-            <option value="completed">Completed</option>
-        </select>
+  <div class="login-container">
+    <img src="login.jpg"="Login Image" class="login-image">
+    <div class="login-form">
+    <h1>To Do List</h1>
+    <ul id="tasks">
+    </ul>
+            <form>
+            <input id="task" placeholder="Add New Task" type="text">
+            <input id="submit" type="submit">
+            </form>
     </div>
-    <ul id="items-list"></ul>
-    <script src="app.js"></script>
+  </div>
+  <footer class="footer">
+    &copy; Ransom Tech
+  </footer>
 </body>
+
 </html>
