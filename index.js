@@ -1,49 +1,38 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const addForm = document.getElementById('add-form');
-  const newItemInput = document.getElementById('new-item');
-  const itemsList = document.getElementById('items-list');
-  const clearCompletedBtn = document.getElementById('clear-completed');
-  const filterSelect = document.getElementById('filter');
+document.addEventListener('DOMContentLoaded',function(){
 
-  // Initialize an empty array to store to-do items
-  let items = [];
+                    // By default, submit button is disabled 
 
-  // Function to add a new item
-  const addItem = (event) => {
-    event.preventDefault();
+                    document.querySelector('#submit').disabled = true;
 
-    const newItem = newItemInput.value.trim();
+                    document.querySelector('#task').onkeyup = function(){
+                        if (document.querySelector('#task').value.length > 0){
+                            document.querySelector('#submit').disabled = false;
+                        } else {
+                            document.querySelector('#submit').disabled = true;
+                        }
+                        
+                    }
+                  
 
-    if (newItem !== '') {
-      const item = {
-        id: Date.now(),
-        name: newItem,
-        completed: false,
-      };
+                  
 
-      items.push(item);
-      newItemInput.value = '';
-      saveItems();
-      renderItems();
-    }
-  };
+                    
 
-  // Function to delete an item
-  const deleteItem = (itemId) => {
-    items = items.filter((item) => item.id !== itemId);
-    saveItems();
-    renderItems();
-  };
+                    document.querySelector('form').onsubmit = function(){
+                       const task =  document.querySelector('#task').value;
+                    const li =document.createElement('li')
+                    li.innerHTML = task;
+                    document.querySelector('#tasks').append(li);
+                    document.querySelector('#task').value='';
 
-  // Function to update an item
-  const updateItem = (itemId, newName, newCompleted) => {
-    items = items.map((item) => (item.id === itemId ? { ...item, name: newName, completed: newCompleted } : item));
-    saveItems();
-    renderItems();
-  };
+                    
+                    
+                    
+                        
+                        // stop form from submitting
 
-  // Function to mark an item as complete
-  const toggleItemCompletion = (itemId) => {
-    items = items.map((item) => (item.id === itemId ? { ...item, completed: !item.completed } : item));
-    saveItems();
-    renderItems();
+                        return false;
+
+                    }
+
+                });
